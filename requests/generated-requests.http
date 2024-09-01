@@ -1,0 +1,31 @@
+### GET products
+GET {{url}}/api/v1/products
+
+
+### GET products by id
+GET {{url}}/api/v1/products/2
+
+
+### POST create product
+POST {{url}}/api/v1/products
+Content-Type: application/json
+
+{
+    "name": "samsumg s21",
+    "description": "Smartphone high-end",
+    "price": 1700
+}
+
+
+### PUT update product
+PUT {{url}}/api/v1/products/2
+Content-Type: application/json
+
+{
+    "name": "Redmi Note 10",
+    "description": "mid-range smartphone",
+    "price": 900
+}
+
+### DELETE product
+DELETE {{url}}/api/v1/products/2

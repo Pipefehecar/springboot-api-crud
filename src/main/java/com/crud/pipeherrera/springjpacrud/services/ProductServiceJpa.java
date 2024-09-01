@@ -33,14 +33,25 @@ public class ProductServiceJpa implements ProductService{
     public Product save(Product product) {
         return repository.save(product);
     }
+    @Transactional
+    @Override
+    public Optional<Product> update(Long id, Product product) {
+        Optional<Product> productOptional = repository.findById(id);
+        if (productOptional.isEmpty()) {
+            return Optional.empty();
+        }
+        Product productDb = productOptional.get();
+        productDb.setName(product.getName());
+        productDb.setPrice(product.getPrice());
+        productDb.setDescription(product.getDescription());
+        return Optional.of(repository.save(productDb));
+    }
 
     @Transactional
     @Override
-    public Optional<Product> delete(Product product) {
-        Optional<Product> productOptional = repository.findById(product.getId());
-        productOptional.ifPresent(productFromDb -> {
-            repository.delete(productFromDb);
-        });
+    public Optional<Product> delete(Long id) {
+        Optional<Product> productOptional = repository.findById(id);
+        productOptional.ifPresent(repository::delete);
         return productOptional;
     }
 
